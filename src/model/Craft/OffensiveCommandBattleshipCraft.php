@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Craft;
+namespace model\Craft;
 
 use model\Craft\OffensiveBattleshipCraft;
 
@@ -10,17 +10,16 @@ use model\Craft\OffensiveBattleshipCraft;
  * This follows a Singleton pattern as there can only be one of these
  */
 
-
-    final class OffensiveCommandBattleshipCraft
+final class OffensiveCommandBattleshipCraft extends OffensiveBattleshipCraft
 {
-    private static $instance;
+    private static ?OffensiveCommandBattleshipCraft $instance = null;
 
     /**
      * gets the instance via lazy initialization (created on first usage)
      */
     public static function getInstance(): OffensiveCommandBattleshipCraft
     {
-        if (null === static::$instance) {
+        if (static::$instance === null) {
             static::$instance = new static();
         }
 

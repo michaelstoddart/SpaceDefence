@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Craft;
+namespace model\Craft;
 
 /**
  * Class representing the top class any Craft in the fleet. 

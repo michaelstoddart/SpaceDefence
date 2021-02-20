@@ -1,5 +1,13 @@
 {
     "require": {
         "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4" : {
+            "model\\" : "src/model/",
+            "model\\Craft\\" : "src/model/Craft",
+            "model\\Equipment\\" : "src/model/Craft/Equipment"
+        }
     }
+ 
 }

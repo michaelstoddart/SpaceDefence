@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Craft;
+namespace model\Craft;
 
 use model\Craft\SupportCraft;
 

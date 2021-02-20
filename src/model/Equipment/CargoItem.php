@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Equipment;
+// namespace model\sEquipment;
 
 /**
  * An item of cargo that can be loaded on a cargo support craft

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Equipment;
+// namespace model\Equipment;
 
 /**
  * The medical unit carried by all support craft
