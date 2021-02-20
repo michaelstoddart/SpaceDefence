@@ -67,25 +67,35 @@ foreach ($mapArray as $shipStartCoordinates) {
 // Allocate the vessels as pairs
 $pairs = [];
 for ($i=0; $i<(int)(NUM_SHIPS/2); $i++) { // if NUM_SHIPS is odd, the last one is ignored
-    echo $i . "\n";
     $pairs[] = [2*$i, 2*$i+1]; // each pair gives the id of two ships 
 }
 
 // For each pair of ships try and get them adjacent
-// print_r ($pairs);
 foreach ($pairs as $pair) {
-    $x1 = $pair[0];
-    $y1 = $pair[0];
-    $x2 = $pair[1];
-    $y2 = $pair[1];
+    $x1 = $mapArray[$pair[0]][0];
+    $y1 = $mapArray[$pair[0]][1];
+    $x2 = $mapArray[$pair[1]][0];
+    $y2 = $mapArray[$pair[1]][1];
     $newX1 = (int)(($x1 + $x2) / 2);
     $newY1 = (int)(($y1 + $y2) / 2);
     $newX2 = (int)((($x1 + $x2) / 2) + 1);
     $newY2 = (int)((($y1 + $y2) / 2) + 1);
 
-    echo (isOccupied($mapArray, $newX1, $newX2)) ? ' X Already occupied\n' : '';
-    echo (isOccupied($mapArray, $newY1, $newY2)) ? ' Y Already occupied\n' : '';
+    if (isOccupied($mapArray, $newX1, $newX2)) {
+        if (!isOccupied($mapArray, $newX1 + 1, $newX2)) {
+            $newX1 = $newX1 + 1;
+        }
+    echo (isOccupied($mapArray, $newY1, $newY2)) ? " Y Already occupied\n" : '';
     
+    $vessel1 = $vessels[$pair[0]];
+    $vessel2 = $vessels[$pair[1]];
+
+    $vessel1->moveTo($newX1, $newY1);
+    $vessel2->moveTo($newX2, $newY2);
+
+    $mapArray[$pair[0]] = [$newX1, $newY1];
+    $mapArray[$pair[1]] = [$newX2, $newY2];
+
 }
 
 function isOccupied($mapArray, int $x, int $y) : bool {
