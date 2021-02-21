@@ -10,6 +10,6 @@ use model\Craft\OffensiveCraft;
  */
 class OffensiveCruiserCraft extends OffensiveCraft
 {
-    private int $numCannon = 6;
+    protected int $numCannon = 6;
  
 }

@@ -11,7 +11,7 @@ use model\Equipment\CargoItem;
  */
 class SupportCargoCraft extends SupportCraft
 {
-    private $currentCargo = []; // array of objects in cargo
+    protected $currentCargo = []; // array of objects in cargo
 
     /**
      * Adds an item of cargo.

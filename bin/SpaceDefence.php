@@ -40,28 +40,29 @@ for ($i=0;$i<NUM_SHIPS;$i++) {
 // Create vessels
 $vessels = [];
 // Create 1 command, 8 refuel, 8 mech asst, 8 cargo, 8 battleship, 8 destroyer and 9 cruisers
-foreach ($mapArray as $shipStartCoordinates) {
-    if ($shipStartCoordinates[0] == 0) { // one Command Battleship
-    $vessels[$shipStartCoordinates[0]] = OffensiveCommandBattleshipCraft::getInstance();
+foreach ($mapArray as $i => $shipStartCoordinates) {
+    if ($i == 0) { // one Command Battleship
+    $vessels[$i] = OffensiveCommandBattleshipCraft::getInstance();
     } 
-    else if (($shipStartCoordinates[0] >= 1) && ($shipStartCoordinates[0] < 9)) { // 1}
-    $vessels[$shipStartCoordinates[0]] = new SupportRefuellingCraft();
+    else if (($i >= 1) && ($i < 9)) { // 1}
+    $vessels[$i] = new SupportRefuellingCraft();
     }
-    else if (($shipStartCoordinates[0] >= 9) && ($shipStartCoordinates[0] < 17)) { // 1}
-    $vessels[$shipStartCoordinates[0]] = new SupportMechAsstCraft();
+    else if (($i >= 9) && ($i < 17)) { // 1}
+    $vessels[$i] = new SupportMechAsstCraft();
     }
-    else if (($shipStartCoordinates[0] >= 17) && ($shipStartCoordinates[0] < 25)) { // 1}
-    $vessels[$shipStartCoordinates[0]] = new SupportCargoCraft();
+    else if (($i >= 17) && ($i < 25)) { // 1}
+    $vessels[$i] = new SupportCargoCraft();
     }
-    else if (($shipStartCoordinates[0] >= 25) && ($shipStartCoordinates[0] < 33)) { // 1}
-    $vessels[$shipStartCoordinates[0]] = new OffensiveBattleshipCraft();
+    else if (($i >= 25) && ($i < 33)) { // 1}
+    $vessels[$i] = new OffensiveBattleshipCraft();
     }
-    else if (($shipStartCoordinates[0] >= 33) && ($shipStartCoordinates[0] < 41)) { // 1}
-    $vessels[$shipStartCoordinates[0]] = new OffensiveDestroyerCraft();
+    else if (($i >= 33) && ($i < 41)) { // 1}
+    $vessels[$i] = new OffensiveDestroyerCraft();
     }
-    else if (($shipStartCoordinates[0] >= 41) && ($shipStartCoordinates[0] < 50)) { // 1}
-    $vessels[$shipStartCoordinates[0]] = new OffensiveCruiserCraft();
+    else if (($i >= 41) && ($i < 50)) { // 1}
+    $vessels[$i] = new OffensiveCruiserCraft();
     }
+    $vessels[$i]->moveTo($shipStartCoordinates[0], $shipStartCoordinates[1]);
 }
 
 // Allocate the vessels as pairs
@@ -81,12 +82,66 @@ foreach ($pairs as $pair) {
     $newX2 = (int)((($x1 + $x2) / 2) + 1);
     $newY2 = (int)((($y1 + $y2) / 2) + 1);
 
-    if (isOccupied($mapArray, $newX1, $newX2)) {
-        if (!isOccupied($mapArray, $newX1 + 1, $newX2)) {
+    if (isOccupied($mapArray, $newX1, $newY1)) {
+        if (!isOccupied($mapArray, $newX1 + 1, $newY1)) {
             $newX1 = $newX1 + 1;
         }
-    echo (isOccupied($mapArray, $newY1, $newY2)) ? " Y Already occupied\n" : '';
-    
+        elseif (!isOccupied($mapArray, $newX1, $newY1 + 1)) {
+            $newY1 = $newY1 + 1;
+        }
+        elseif (!isOccupied($mapArray, $newX1 - 1, $newY1)) {
+            $newX1 = $newX1 - 1;
+        }
+        elseif (!isOccupied($mapArray, $newX1, $newY1 -1)) {
+            $newY1 = $newY1 - 1;
+        }
+        elseif (!isOccupied($mapArray, $newX1 - 1, $newY1)) {
+            $newX1 = $newX1 - 1;
+        }
+        elseif (!isOccupied($mapArray, $newX1 + 1, $newY1 + 1)) {
+            $newX1 = $newX1 + 1;
+            $newY1 = $newY1 + 1;
+        }
+        elseif (!isOccupied($mapArray, $newX1 - 1, $newY1 - 1)) {
+            $newX1 = $newX1 - 1;
+            $newY1 = $newY1 - 1;
+        }
+        else {
+            echo "Failed to move vessel " . $pair[0];
+        }
+    }
+ 
+    if (isOccupied($mapArray, $newX2, $newY2)) {
+        if (!isOccupied($mapArray, $newX2 + 1, $newY2)) {
+            $newX2 = $newX2 + 1;
+        }
+        elseif (!isOccupied($mapArray, $newX2, $newY2 + 1)) {
+            $newY2 = $newY2 + 1;
+        }
+        elseif (!isOccupied($mapArray, $newX2 - 1, $newY2)) {
+            $newX2 = $newX2 - 1;
+        }
+        elseif (!isOccupied($mapArray, $newX2, $newY2 -1)) {
+            $newY2 = $newY2 - 1;
+        }
+        elseif (!isOccupied($mapArray, $newX2 - 1, $newY2)) {
+            $newX2 = $newX2 - 1;
+        }
+        elseif (!isOccupied($mapArray, $newX2 + 1, $newY2 + 1)) {
+            $newX2 = $newX2 + 1;
+            $newY2 = $newY2 + 1;
+        }
+        elseif (!isOccupied($mapArray, $newX2 - 1, $newY2 - 1)) {
+            $newX2 = $newX2 - 1;
+            $newY2 = $newY2 - 1;
+        }
+        else {
+            echo "Failed to move vessel " . $pair[0];
+        }
+    }
+ 
+        
+
     $vessel1 = $vessels[$pair[0]];
     $vessel2 = $vessels[$pair[1]];
 
@@ -95,6 +150,8 @@ foreach ($pairs as $pair) {
 
     $mapArray[$pair[0]] = [$newX1, $newY1];
     $mapArray[$pair[1]] = [$newX2, $newY2];
+
+    var_dump($vessels);
 
 }
 

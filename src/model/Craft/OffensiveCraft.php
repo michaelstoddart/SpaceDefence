@@ -10,14 +10,16 @@ use model\Craft\FleetCraft;
  */
 class OffensiveCraft extends FleetCraft
 {
-    private int $numCannon = 0; // this number is overridden in the derived classes
-    private bool $shieldsRaised = false;
+    protected int $numCannon = 0; // this number is overridden in the derived classes
+    protected bool $shieldsRaised = false;
 
     /**
      * Causes the craft to attack, firing all its cannon
      */
     public function attack() {
-
+        for ($i = 0; $i < $this->numCannon; $i++) {
+            echo "Bang\n";
+        }
     }
 
      /**
@@ -36,6 +38,7 @@ class OffensiveCraft extends FleetCraft
      * @return void
      */
     public function lowerShields() : void {
+        $this->shieldsRaised = false;
         return;
     }
 

@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 class CargoItem
 {
-    private $xDimension, $yDimension, $zDimension; //size of cargo item
-    private $weight; // weight of cargo item
+    protected $xDimension, $yDimension, $zDimension; //size of cargo item
+    protected $weight; // weight of cargo item
 
     /**
      * Constructs a cargo item

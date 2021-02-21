@@ -11,6 +11,6 @@ use model\Equipment\MedicalUnit;
  */
 class SupportCraft extends FleetCraft
 {
-    private MedicalUnit $medicalUnit;
+    protected MedicalUnit $medicalUnit;
    
 }

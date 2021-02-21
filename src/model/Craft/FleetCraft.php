@@ -10,7 +10,7 @@ namespace model\Craft;
 class FleetCraft
 {
 
-    private int $x, $y; // current coordinates
+    private int $x = 0, $y = 0; // current coordinates
 
 
     /**
@@ -22,7 +22,17 @@ class FleetCraft
      * @return bool $success returns true if successfully moved
      */
     public function moveTo(int $x, int $y) : bool {
-        $success = false;
-        return $success;
+        $this->x = $x;
+        $this->y = $y;
+        return true; // should check here if free
+    }
+
+    /**
+     * Gets the current position of the craft
+     * 
+     * @return array(int $x, int $y) x and y coordinates of the craft
+     */
+    public function getPosition() : array {
+        return [$x, $y];
     }
 }
